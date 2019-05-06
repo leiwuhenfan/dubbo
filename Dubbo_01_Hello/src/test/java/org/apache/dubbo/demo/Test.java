@@ -16,20 +16,21 @@
  */
 package org.apache.dubbo.demo;
 
-import org.apache.dubbo.demo.DemoService;
+import java.io.IOException;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Test {
-    /**
-     * In order to make sure multicast registry works, need to specify '-Djava.net.preferIPv4Stack=true' before
-     * launch the application
-     */
-    public static void main(String[] args) {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/dubbo-consumer.xml");
-        context.start();
-        DemoService demoService = context.getBean("demoService", DemoService.class);
-        String hello = demoService.sayHello("world");
-        System.out.println("result: " + hello);
-    }
+	/**
+	 * In order to make sure multicast registry works, need to specify
+	 * '-Djava.net.preferIPv4Stack=true' before launch the application
+	 * 
+	 * @throws IOException
+	 */
+	public static void main(String[] args) throws IOException {
+		@SuppressWarnings("resource")
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/dubbo-provider.xml");
+		context.start();
+		System.in.read();
+	}
 }

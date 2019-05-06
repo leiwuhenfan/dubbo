@@ -16,20 +16,29 @@
  */
 package org.apache.dubbo.demo;
 
+import java.util.List;
+
 import org.apache.dubbo.demo.DemoService;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.util.StringUtils;
 
 public class Test {
-    /**
-     * In order to make sure multicast registry works, need to specify '-Djava.net.preferIPv4Stack=true' before
-     * launch the application
-     */
-    public static void main(String[] args) {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/dubbo-consumer.xml");
-        context.start();
-        DemoService demoService = context.getBean("demoService", DemoService.class);
-        String hello = demoService.sayHello("world");
-        System.out.println("result: " + hello);
-    }
+	/**
+	 * In order to make sure multicast registry works, need to specify
+	 * '-Djava.net.preferIPv4Stack=true' before launch the application
+	 */
+	public static void main(String[] args) {
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/dubbo-consumer.xml");
+		context.start();
+		DemoService demoService = context.getBean("demoService", DemoService.class);
+		String hello = demoService.sayHello("world");
+		System.out.println("result: " + hello);
+
+		DemoService demoService2 = context.getBean("demoService", DemoService.class);
+		List<String> usernames = demoService2.queryUsers(new String[] { "", "" });
+		System.out.println("usernames: " + StringUtils.toStringArray(usernames));
+
+		context.close();
+	}
 }

@@ -13,7 +13,7 @@ public class Application {
 	public static void main(String[] args) throws IOException {
 		ServiceConfig<GreetingService> serviceConfig = new ServiceConfig<GreetingService>();
 		serviceConfig.setApplication(new ApplicationConfig("first-dubbo-provider"));
-		serviceConfig.setRegistry(new RegistryConfig("zookeeper://192.168.0.59:2181"));
+		serviceConfig.setRegistry(new RegistryConfig("zookeeper://192.168.0.78:2181"));
 		serviceConfig.setInterface(GreetingService.class);
 		serviceConfig.setRef(new GreetingServiceImpl());
 		serviceConfig.export();
